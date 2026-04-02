@@ -1,0 +1,142 @@
+System Stress Testing Docker Project
+🚀 Project Title
+Docker-Based System Stress Testing Tool (CPU, RAM, GPU)
+
+📌 Overview
+This project provides a containerized Python-based stress testing tool designed to simulate load on:
+·CPU (multi-core utilization) 
+·RAM (memory allocation & usage) 
+·GPU (via OpenCL, if available) 
+The application is fully containerized using Docker, making it portable and easy to deploy across different environments.
+
+🛠️ Technologies Used
+·Python 3.14 
+·Docker 
+·NumPy 
+·Multiprocessing 
+·OpenCL (optional GPU support) 
+
+📁 Project Structure
+project-root/
+│
+├── Dockerfile
+├── script.py
+└── Instructions.txt
+
+⚙️ Dockerfile Explanation
+FROM python:3.14
+
+WORKDIR /script
+
+COPY script.py .
+
+RUN pip install numpy
+
+CMD ["python", "script.py"]
+🔍 Breakdown
+·FROM python:3.14 → Uses official Python image 
+·WORKDIR /script → Sets working directory inside container 
+·COPY script.py . → Copies script into container 
+·RUN pip install numpy → Installs dependency 
+·CMD → Runs the script when container starts 
+
+🧠 Script Functionality
+1. CPU Stress
+·Uses multiprocessing to utilize all CPU cores 
+·Performs heavy mathematical computations 
+2. RAM Stress
+·Allocates specified GB of memory 
+·Continuously performs read/write operations 
+3. GPU Stress (Optional)
+·Uses OpenCL for GPU workload 
+·Works on AMD, Intel, NVIDIA (if supported) 
+
+📥 Prerequisites
+Make sure you have:
+·Docker installed 
+·Git installed 
+
+🔧 Installation Guide
+Step 1: Install Git (Windows)
+winget install --id Git.Git -e --source winget
+Step 2: Verify Git
+git --version
+
+Step 3: Install Docker
+Download from:
+👉 https://www.docker.com/products/docker-desktop
+Verify:
+docker --version
+
+📦 Clone Repository
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+🏗️ Build Docker Image
+docker build -t stress-app .
+
+▶️ Run Container
+Basic Run
+docker run stress-app
+
+Custom Parameters
+docker run stress-app --cpu 4 --mem 2 --time 120
+Parameters Explained
+Parameter
+Description
+--cpu
+Number of CPU cores to use
+--mem
+RAM usage in GB
+--time
+Duration in seconds
+
+📊 Example Output
+Starting Stress: 4 Cores, 2GB RAM for 120s
+
+⚡ Resource Limiting (IMPORTANT)
+To prevent system crash, use Docker limits:
+docker run \
+--cpus="2.0" \
+--memory="2g" \
+stress-app --cpu 2 --mem 1 --time 60
+
+📄 Docker Compose (Optional)
+Create docker-compose.yml:
+version: '3.9'
+
+services:
+  stress-test:
+    build: .
+    container_name: stress_container
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+    command: ["python", "script.py", "--cpu", "2", "--mem", "1", "--time", "60"]
+Run with Compose
+docker-compose up --build
+
+🧪 Use Cases
+·System performance testing 
+·Stress testing servers 
+·DevOps learning & experimentation 
+·Resource monitoring practice 
+
+⚠️ Warning
+·This tool can heavily load your system 
+·May cause: 
+oSystem slowdown 
+oHigh temperature 
+oSystem crash (if limits not applied) 
+👉 Always use resource limits!
+
+🧩 Future Improvements
+·Add logging system 
+·Add real-time monitoring dashboard 
+·Add GPU utilization metrics 
+·Add CLI progress bar 
+
+👨‍💻 Author
+Your Name: Usman Inam.
