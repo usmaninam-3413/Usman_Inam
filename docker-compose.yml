@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  stress-test:
+    build: .
+    container_name: stress_container
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+    command: ["python", "script.py", "--cpu", "2", "--mem", "1", "--time", "60"]
