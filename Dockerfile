@@ -1,9 +1,17 @@
-FROM python:3.14
+FROM python:3.11-slim
 
-WORKDIR /script
+ENV PYTHONUNBUFFERED=1
 
-COPY script.py .
+WORKDIR /app
 
-RUN pip install numpy
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-CMD ["python", "script.py"]
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY stress_test.py .
+
+CMD ["python", "stress_test.py"]
