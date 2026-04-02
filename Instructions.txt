@@ -138,5 +138,4 @@ oSystem crash (if limits not applied)
 ·Add GPU utilization metrics 
 ·Add CLI progress bar 
 
-👨‍💻 Author
-Your Name: Usman Inam.
+👨‍💻 Author: Usman Inam.
